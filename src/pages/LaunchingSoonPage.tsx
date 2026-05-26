@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useForm } from '@formspree/react';
 
 interface LaunchingSoonPageProps {
   readonly className?: string;
@@ -6,27 +7,12 @@ interface LaunchingSoonPageProps {
 
 export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className = '' }) => {
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState(false);
-  const [error, setError] = useState(false);
+  const [formState, handleFormspreeSubmit] = useForm('mojbkyrj');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    try {
-      const res = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_ID', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      if (res.ok) {
-        setSubmitted(true);
-      } else {
-        setError(true);
-      }
-    } catch {
-      setError(true);
-    }
+    handleFormspreeSubmit(e as any);
   };
 
   return (
@@ -83,7 +69,7 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
         </h1>
 
         {/* Email form */}
-        {!submitted ? (
+        {!formState.succeeded ? (
           <div>
             <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-[#4A5D55] mb-5 text-center">
               Be the first to know
@@ -96,6 +82,7 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
             >
               <input
                 type="email"
+                name="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -106,17 +93,23 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
               />
               <button
                 type="submit"
-                className="ml-3 text-[#1A2B23] hover:text-[#2A4E3C] transition-colors duration-200 text-[24px] leading-none"
+                disabled={formState.submitting}
+                className="ml-3 text-[#1A2B23] hover:text-[#2A4E3C] transition-colors duration-200 text-[24px] leading-none disabled:opacity-40"
                 aria-label="Submit"
               >
                 →
               </button>
             </form>
+            {formState.errors && formState.errors.getAllFieldErrors().length > 0 && (
+              <p className="font-mono text-[10px] text-red-500 mt-2 text-center">
+                Something went wrong. Please try again.
+              </p>
+            )}
           </div>
         ) : (
           <div style={{ animation: 'fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both' }}>
             <p className="font-['Cormorant_Garamond'] font-300 italic text-[28px] text-[#1A2B23] text-center">
-              {error ? 'Something went wrong. Try again.' : "You're on the list."}
+              You're on the list.
             </p>
           </div>
         )}
