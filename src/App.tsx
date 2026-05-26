@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Nav } from './components/Nav';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
@@ -24,6 +24,9 @@ const App: React.FC<AppProps> = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Root redirects to launching soon */}
+        <Route path="/" element={<Navigate to="/launching-soon" replace />} />
+
         {/* Standalone launching-soon page — no Nav or Footer */}
         <Route path="/launching-soon" element={<LaunchingSoonPage />} />
 
