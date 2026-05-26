@@ -8,11 +8,24 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [error, setError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubmitted(true);
+    if (!email.trim()) return;
+    try {
+      const res = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
     }
   };
 
@@ -103,7 +116,7 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
         ) : (
           <div style={{ animation: 'fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both' }}>
             <p className="font-['Cormorant_Garamond'] font-300 italic text-[28px] text-[#1A2B23] text-center">
-              You're on the list.
+              {error ? 'Something went wrong. Try again.' : "You're on the list."}
             </p>
           </div>
         )}
