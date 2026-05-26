@@ -41,8 +41,8 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
       {/* Edge fades — dissolve image into bg on all sides */}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#EDE9E1] via-[#EDE9E1]/80 to-transparent pointer-events-none z-10" />
       <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#EDE9E1] via-[#EDE9E1]/90 to-transparent pointer-events-none z-10" />
-      <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-[#EDE9E1] to-transparent pointer-events-none z-10" />
-      <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[#EDE9E1] to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-y-0 left-0 w-[25%] bg-gradient-to-r from-[#EDE9E1] via-[#EDE9E1]/60 to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-y-0 right-0 w-[25%] bg-gradient-to-l from-[#EDE9E1] via-[#EDE9E1]/60 to-transparent pointer-events-none z-10" />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <header className="relative z-20 flex-shrink-0 flex items-center justify-center px-5 h-[50px]">
