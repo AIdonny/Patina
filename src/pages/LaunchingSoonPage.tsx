@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from '@formspree/react';
 
 interface LaunchingSoonPageProps {
@@ -9,6 +9,15 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
   const [email, setEmail] = useState('');
   const [focused, setFocused] = useState(false);
   const [formState, handleFormspreeSubmit] = useForm('mojbkyrj');
+
+  // Fire Meta Pixel Lead event when email is successfully submitted
+  useEffect(() => {
+    if (formState.succeeded) {
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead');
+      }
+    }
+  }, [formState.succeeded]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
