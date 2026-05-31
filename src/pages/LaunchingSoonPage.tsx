@@ -84,7 +84,7 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
               <input
                 type="email"
                 name="email"
-                placeholder="your@email.com"
+                placeholder="EMAIL ADDRESS"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onFocus={() => setFocused(true)}
