@@ -75,6 +75,9 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
       >
         {!formState.succeeded ? (
           <div className="w-full md:max-w-[640px]">
+            <p className="font-mono text-[9px] tracking-[0.22em] uppercase text-[#1B3A2D]/55 mb-4 md:text-center">
+              Be the first to know when we launch
+            </p>
             <form
               onSubmit={handleSubmit}
               className={`flex items-center border-b transition-colors duration-300 pb-3 ${
