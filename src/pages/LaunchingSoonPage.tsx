@@ -57,11 +57,16 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
           </span>
 
           {/* Headline — loud voice */}
-          <h1 className="font-['Barlow_Condensed'] font-extrabold uppercase text-[54px] md:text-[92px] leading-[0.94] tracking-[-0.01em] text-[#141414] mb-7">
-            Dark circles aren't from bad sleep.
+          <h1 className="font-['Barlow_Condensed'] font-extrabold uppercase text-[44px] md:text-[92px] leading-[0.95] tracking-[-0.01em] text-[#141414] mb-5">
+            8 hours on a screen.
             <br />
-            <span className="text-[#E8341A]">They're from good work.</span>
+            <span className="text-[#E8341A]">15 minutes to fix it.</span>
           </h1>
+
+          {/* Sub-line — what it actually is */}
+          <p className="font-['IBM_Plex_Mono'] text-[14px] md:text-[17px] tracking-[0.5px] leading-[1.6] text-[#141414] max-w-[48ch] md:mx-auto mb-7">
+            Depuffing + brightening eye patches, formulated for screen workers.
+          </p>
 
           {/* Squiggle — pink brand device */}
           <svg
