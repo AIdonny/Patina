@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from '@formspree/react';
+import React, { useState } from 'react';
+import { useSubmit } from '@formspree/react';
 
 interface LaunchingSoonPageProps {
   readonly className?: string;
@@ -10,20 +10,31 @@ const CHECKER_EASE = 'cubic-bezier(0.22,1,0.36,1)';
 export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className = '' }) => {
   const [email, setEmail] = useState('');
   const [focused, setFocused] = useState(false);
-  const [formState, handleFormspreeSubmit] = useForm('mojbkyrj');
+  const [submitting, setSubmitting] = useState(false);
+  const [succeeded, setSucceeded] = useState(false);
+  const [errored, setErrored] = useState(false);
 
-  // Fire Meta Pixel Lead event when email is successfully submitted
-  useEffect(() => {
-    if (formState.succeeded) {
+  const submit = useSubmit('mojbkyrj');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setErrored(false);
+
+    const result = await submit(e as any);
+
+    setSubmitting(false);
+
+    if (result.kind === 'success') {
+      setSucceeded(true);
+      // Fire Meta Pixel Lead event only after Formspree confirms success
       if (typeof window !== 'undefined' && (window as any).fbq) {
         (window as any).fbq('track', 'Lead');
       }
+    } else {
+      // Validation failure or request error — no pixel event
+      setErrored(true);
     }
-  }, [formState.succeeded]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleFormspreeSubmit(e as any);
   };
 
   return (
@@ -84,7 +95,7 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
           </svg>
 
           {/* Email form */}
-          {!formState.succeeded ? (
+          {!succeeded ? (
             <div className="w-full md:max-w-[640px] md:mx-auto">
               <p className="font-['IBM_Plex_Mono'] text-[10px] tracking-[0.18em] uppercase text-[#141414] mb-4 md:text-center">
                 First batch limited
@@ -108,13 +119,13 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
                 />
                 <button
                   type="submit"
-                  disabled={formState.submitting}
+                  disabled={submitting}
                   className="font-['Barlow_Condensed'] font-bold uppercase tracking-[0.1em] text-[15px] bg-[#141414] text-[#FAFAFA] px-6 self-stretch transition-colors duration-200 hover:bg-[#E8341A] focus-visible:bg-[#E8341A] active:bg-[#E8341A] disabled:opacity-40"
                 >
                   Join
                 </button>
               </form>
-              {formState.errors && formState.errors.getAllFieldErrors().length > 0 && (
+              {errored && (
                 <p className="font-['IBM_Plex_Mono'] text-[10px] text-[#E8341A] mt-2">
                   Something went wrong. Please try again.
                 </p>
