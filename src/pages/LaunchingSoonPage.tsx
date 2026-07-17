@@ -45,8 +45,8 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
         className="flex-shrink-0 flex items-center justify-between px-5 md:px-10 h-[64px] border-b border-[#141414]"
         style={{ animation: `fadeUp 0.6s ${CHECKER_EASE} both` }}
       >
-        <span className="font-['Cormorant_Infant'] text-[26px] leading-none text-[#141414]">
-          patina<span className="text-[#E8341A]">.</span>
+        <span className="font-['Barlow_Condensed'] font-bold uppercase text-[28px] tracking-[-0.01em] leading-none text-[#141414]">
+          Patina
         </span>
         <span className="font-['IBM_Plex_Mono'] text-[10px] tracking-[0.18em] uppercase text-[#141414]">
           Launching Soon
