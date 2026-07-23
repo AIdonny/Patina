@@ -79,21 +79,6 @@ export const LaunchingSoonPage: React.FC<LaunchingSoonPageProps> = ({ className 
             Depuffing + brightening eye patches, formulated for screen workers.
           </p>
 
-          {/* Squiggle — pink brand device */}
-          <svg
-            className="w-[88px] h-[14px] md:mx-auto mb-9"
-            viewBox="0 0 88 14"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M2 7 Q9 1 16 7 T30 7 T44 7 T58 7 T72 7 T86 7"
-              stroke="#F272A8"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-          </svg>
-
           {/* Email form */}
           {!succeeded ? (
             <div className="w-full md:max-w-[640px] md:mx-auto">
